@@ -3831,6 +3831,23 @@ Process.prototype.reportJSONData = function (jsonText, jsonParams) {
 };
 
 
+Process.prototype.reportCSVFields = function (CSVAsList) {
+    //Check to see if the CSV is equal to "None".
+    if (CSVAsList == "None") {
+        return "None";
+    }
+
+    //Grab the CSV header line.
+    var headerLine = CSVAsList.at(1);
+
+    //Split the header line by comma.
+    var headerLineList = new List(headerLine.split(','));
+    console.log(headerLineList);
+
+    return headerLineList;
+
+};
+
 Process.prototype.reportCSVValue = function (CSVAsList, field, CSVIndex) {
     //Check to see if the CSV is equal to "None".
     if (CSVAsList == "None"){

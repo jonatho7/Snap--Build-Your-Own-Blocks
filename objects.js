@@ -1264,7 +1264,7 @@ SpriteMorph.prototype.initBlocks = function () {
         reportURLUsingServer: {
             type: 'reporter',
             category: 'data',
-            spec: '%storage get JSON from URL: http:// %http1',
+            spec: 'from URL http:// %http1 get JSON',
             defaults: ['forecast.weather.gov/MapClick.php?lat=37.2295733&lon=-80.4139393&FcstType=json']
         },
         reportURLWithCaching: {
@@ -1279,10 +1279,15 @@ SpriteMorph.prototype.initBlocks = function () {
             spec: 'from JSON text %txt get %mult%txt',
             defaults: ['','']
         },
+        reportCSVFields: {
+            type: 'reporter',
+            category: 'Cloud',
+            spec: 'from CSV %txt get fields'
+        },
         reportCSVValue: {
             type: 'reporter',
             category: 'Cloud',
-            spec: 'from CSV %txt get value at field %txt index # %n'
+            spec: 'from CSV %txt field %txt get value at index # %n'
         },
 
 
@@ -2541,6 +2546,7 @@ SpriteMorph.prototype.blockTemplates = function (category) {
         blocks.push('=');
         //blocks.push(block('reportDataAppend'));               //commented out for now.
         //blocks.push('=');
+        blocks.push(block('reportCSVFields'));
         blocks.push(block('reportCSVValue'));
         //blocks.push(block('reportDataWordFrequency'));
         //blocks.push(block('reportDataSelectUnique'));
@@ -5715,6 +5721,7 @@ StageMorph.prototype.blockTemplates = function (category) {
         blocks.push('=');
         //blocks.push(block('reportDataAppend'));               //commented out for now.
         //blocks.push('=');
+        blocks.push(block('reportCSVFields'));
         blocks.push(block('reportCSVValue'));
         //blocks.push(block('reportDataWordFrequency'));
         //blocks.push(block('reportDataSelectUnique'));
