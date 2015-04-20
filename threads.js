@@ -3806,6 +3806,18 @@ Process.prototype.reportURLWithCaching = function (urlArray, numSecondsToCache) 
 
 };
 
+
+Process.prototype.reportJSONKeys = function (jsonText) {
+	var json = JSON.parse( jsonText );
+
+    var keys = Object.keys(json);
+
+    var keysList = new List(keys);
+
+    return keysList;
+};
+
+
 Process.prototype.reportJSONData = function (jsonText, jsonParams) {
 	var json = JSON.parse( jsonText );
 	

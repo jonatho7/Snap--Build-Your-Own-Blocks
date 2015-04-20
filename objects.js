@@ -1273,6 +1273,11 @@ SpriteMorph.prototype.initBlocks = function () {
             spec: 'http:// %http1 and keep result stored for %n seconds (Prototype)',
             defaults: ['date.jsontest.com', '60']
         },
+        reportJSONKeys: {
+            type: 'reporter',
+            category: 'data',
+            spec: 'from JSON text %txt get keys'
+        },
         reportJSONData: {
             type: 'reporter',
             category: 'data',
@@ -2517,6 +2522,7 @@ SpriteMorph.prototype.blockTemplates = function (category) {
         blocks.push(block('reportRedditCommentInfo'));
         blocks.push('=');
         blocks.push(block('reportURLUsingServer'));
+        blocks.push(block('reportJSONKeys'));
         blocks.push(block('reportJSONData'));
         //blocks.push(block('reportBusinessData'));
 
@@ -5691,6 +5697,7 @@ StageMorph.prototype.blockTemplates = function (category) {
         blocks.push(block('reportRedditCommentInfo'));
         blocks.push('=');
         blocks.push(block('reportURLUsingServer'));
+        blocks.push(block('reportJSONKeys'));
         blocks.push(block('reportJSONData'));
         //blocks.push(block('reportBusinessData'));
 
