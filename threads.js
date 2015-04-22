@@ -4093,17 +4093,9 @@ Process.prototype.reportDataSelect = function (selectedFields, conditionJSON, da
         throw new Error('A string was expected for the selected fields, but an object was received');
     }
 
-    //Check the conditionJSON parameter.
-    formattedConditions = throwErrorIfConditionParametersAreInvalid(conditionJSON['conditionField'],
-        conditionJSON['conditionOperator'], conditionJSON['conditionValue']);
-    conditionField = formattedConditions[0];
-    conditionOperator = formattedConditions[1];
-    conditionValue = formattedConditions[2];
-
-    console.log("conditionField");
-    console.log(conditionField);
 
     //Check the filterJSON parameter.
+
 
     //Check the dataSourceJSON parameter.
     dataSourceType = null;
@@ -4137,20 +4129,23 @@ Process.prototype.reportDataSelect = function (selectedFields, conditionJSON, da
         "dataSourceType": dataSourceType, "dataSourceValue": dataSourceValue
     };
 
-    jsonArgs["numberOfConditions"] = 3;
 
-    //Todo. Do an iteration here.
-    jsonArgs["conditionField0"] = conditionField;
-    jsonArgs["conditionOperator0"] = conditionOperator;
-    jsonArgs["conditionValue0"] = conditionValue;
+    //Grab all of the values from the conditionJSON and throw them into jsonArgs.
+    var conditionJSONKeys = Object.keys(conditionJSON);
+    if (conditionJSONKeys.length == 3){
+        //There was only one condition.
+        jsonArgs["numberOfConditions"] = 1;
+        jsonArgs["conditionField0"] = conditionJSON['conditionField'];
+        jsonArgs["conditionOperator0"] = conditionJSON['conditionOperator'];
+        jsonArgs["conditionValue0"] = conditionJSON['conditionValue'];
+    } else {
+        for(var i = 0; i < conditionJSONKeys.length; i++ ) {
+            //There is more than one condition.
+            //Just dump all of the keys from the conditionJSON json to the jsonArgs json.
+            jsonArgs[conditionJSONKeys[i]] = conditionJSON[conditionJSONKeys[i]];
+        }
+    }
 
-    jsonArgs["conditionField1"] = 'WEEK';
-    jsonArgs["conditionOperator1"] = '>=';
-    jsonArgs["conditionValue1"] = '26';
-
-    jsonArgs["conditionField2"] = 'ILITOTAL';
-    jsonArgs["conditionOperator2"] = '>=';
-    jsonArgs["conditionValue2"] = '18000';
 
     var isAsync = false;
 	var ajaxResponse = Process.prototype.ajaxRequest(urlBase, jsonArgs, isAsync);
@@ -4187,7 +4182,24 @@ Process.prototype.reportDataFields = function (fieldsArray) {
 
 
 Process.prototype.reportDataConditions = function (conditionsArray) {
-    throw new Error("Conditions method stub. Please do not use this block yet, but use separate conditions for now.");
+
+    var conditionsJSON = {};
+
+    for(var i = 1; i <= conditionsArray.length(); i++){
+        var tempName = "conditionField" + (i - 1);
+        conditionsJSON[tempName] = conditionsArray.at(i)['conditionField'];
+
+        tempName = "conditionOperator" + (i - 1);
+        conditionsJSON[tempName] = conditionsArray.at(i)['conditionOperator'];
+
+        tempName = "conditionValue" + (i - 1);
+        conditionsJSON[tempName] = conditionsArray.at(i)['conditionValue'];
+	}
+
+    conditionsJSON["numberOfConditions"] = conditionsArray.length();
+
+    console.log(conditionsJSON);
+    return conditionsJSON;
 
 };
 

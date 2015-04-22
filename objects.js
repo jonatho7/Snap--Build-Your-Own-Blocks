@@ -2542,7 +2542,7 @@ SpriteMorph.prototype.blockTemplates = function (category) {
         blocks.push('=');
         blocks.push(block('reportDataSelect'));
         //blocks.push(block('reportDataFields'));               //commented out for now.
-        //blocks.push(block('reportDataConditions'));           //commented out for now.
+        blocks.push(block('reportDataConditions'));
         blocks.push(block('reportDataCondition'));
         //blocks.push(block('reportDataFilterOrderBy'));
         //blocks.push(block('reportDataFilterLimit'));
@@ -5718,7 +5718,7 @@ StageMorph.prototype.blockTemplates = function (category) {
         blocks.push('=');
         blocks.push(block('reportDataSelect'));
         //blocks.push(block('reportDataFields'));               //commented out for now.
-        //blocks.push(block('reportDataConditions'));           //commented out for now.
+        blocks.push(block('reportDataConditions'));
         blocks.push(block('reportDataCondition'));
         //blocks.push(block('reportDataFilterOrderBy'));
         //blocks.push(block('reportDataFilterLimit'));
