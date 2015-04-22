@@ -4133,10 +4133,25 @@ Process.prototype.reportDataSelect = function (selectedFields, conditionJSON, da
 
 	var urlBase = "api/internaldataprocessing/select";
 	var jsonArgs = {"user_id": user_id, "isSelectAllFields": isSelectAllFields,
-        "selectedFields": selectedFields, "conditionField": conditionField,
-        "conditionOperator": conditionOperator, "conditionValue": conditionValue,
+        "selectedFields": selectedFields,
         "dataSourceType": dataSourceType, "dataSourceValue": dataSourceValue
     };
+
+    jsonArgs["numberOfConditions"] = 3;
+
+    //Todo. Do an iteration here.
+    jsonArgs["conditionField0"] = conditionField;
+    jsonArgs["conditionOperator0"] = conditionOperator;
+    jsonArgs["conditionValue0"] = conditionValue;
+
+    jsonArgs["conditionField1"] = 'WEEK';
+    jsonArgs["conditionOperator1"] = '>=';
+    jsonArgs["conditionValue1"] = '26';
+
+    jsonArgs["conditionField2"] = 'ILITOTAL';
+    jsonArgs["conditionOperator2"] = '>=';
+    jsonArgs["conditionValue2"] = '18000';
+
     var isAsync = false;
 	var ajaxResponse = Process.prototype.ajaxRequest(urlBase, jsonArgs, isAsync);
 
