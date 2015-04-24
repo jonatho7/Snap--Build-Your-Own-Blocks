@@ -2550,8 +2550,8 @@ SpriteMorph.prototype.blockTemplates = function (category) {
         blocks.push(block('reportDataMaximum'));
         blocks.push(block('reportDataAverage'));
         blocks.push('=');
-        //blocks.push(block('reportDataAppend'));               //commented out for now.
-        //blocks.push('=');
+        blocks.push(block('reportDataAppend'));               //commented out for now.
+        blocks.push('=');
         blocks.push(block('reportCSVFields'));
         blocks.push(block('reportCSVValue'));
         //blocks.push(block('reportDataWordFrequency'));
@@ -5726,8 +5726,8 @@ StageMorph.prototype.blockTemplates = function (category) {
         blocks.push(block('reportDataMaximum'));
         blocks.push(block('reportDataAverage'));
         blocks.push('=');
-        //blocks.push(block('reportDataAppend'));               //commented out for now.
-        //blocks.push('=');
+        blocks.push(block('reportDataAppend'));               //commented out for now.
+        blocks.push('=');
         blocks.push(block('reportCSVFields'));
         blocks.push(block('reportCSVValue'));
         //blocks.push(block('reportDataWordFrequency'));

@@ -4404,8 +4404,69 @@ Process.prototype.reportDataAverage = function (operationType, field, dataSource
 };
 
 
-Process.prototype.reportDataAppend = function (csvOne, csvTwo) {
-    throw new Error("append method stub. Please do not use this block yet, but use separate methods for now.");
+Process.prototype.reportDataAppend = function (csvOneJSON, csvTwoJSON) {
+
+    //Check the parameters.
+    if (csvOneJSON == ""){
+        throw new Error('Invalid data source for the first CSV. Expected a cloud variable.');
+    } else if (csvOneJSON['type'] == null || csvOneJSON['value'] == null ){
+        throw new Error('Invalid data source for the first CSV. Expected a cloud variable.');
+    } else {
+        var dataSourceType0 = csvOneJSON['type'];
+        var dataSourceValue0 = csvOneJSON['value'];
+    }
+
+    if (csvTwoJSON == ""){
+        throw new Error('Invalid data source for the second CSV. Expected a cloud variable.');
+    } else if (csvTwoJSON['type'] == null || csvTwoJSON['value'] == null ){
+        throw new Error('Invalid data source for the second CSV. Expected a cloud variable.');
+    } else {
+        var dataSourceType1 = csvTwoJSON['type'];
+        var dataSourceValue1 = csvTwoJSON['value'];
+    }
+    
+
+    //Now perform the operation.
+    var data;
+
+    //Get the user's id number, or make one if the user does not already have one.
+    var user_id = retrieveOrMakeGuid();
+
+	var urlBase = "api/internaldataprocessing/append";
+	var jsonArgs = {"user_id": user_id,
+        "dataSourceType0": dataSourceType0, "dataSourceValue0": dataSourceValue0,
+        "dataSourceType1": dataSourceType1, "dataSourceValue1": dataSourceValue1
+    };
+
+
+    var isAsync = false;
+	var ajaxResponse = Process.prototype.ajaxRequest(urlBase, jsonArgs, isAsync);
+
+	var json = JSON.parse( ajaxResponse );
+	console.log(json);
+
+	var report = json['report'];
+	//Check to see if there is a valid report object.
+	if (report == ""){
+		throw new Error("Unable to perform 'append' block");
+	}
+    if(report['errorMessage'] != null){
+        //There was an error. Print out the error for the user.
+        throw new Error(report['errorMessage']);
+    }
+
+
+
+    data = report['data'];
+    if ((data) || (data == "")){
+        return data;
+    } else {
+        throw new Error("Unable to perform 'select' block");
+    }
+
+
+
+
 
 };
 
